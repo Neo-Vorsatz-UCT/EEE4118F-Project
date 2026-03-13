@@ -8,12 +8,13 @@ function plot_raw_data(dependent_var, filename)
     %read the file into a table
     try
         disp("start");
-        data = readtable(filename);
+        data = readtable(strcat("raw_data/",filename));
         disp("end");
         
         %check for the time column (case-insensitive)
         varNames = data.Properties.VariableNames;
-        timeIdx = find(strcmpi(varNames, 'TIME(s)'), 1);
+        disp(varNames)
+        timeIdx = find(strcmpi(varNames, 'TIME_s_'), 1);
         if isempty(timeIdx)
             error('No "time" column found in %s.', filename);
         end
@@ -38,4 +39,4 @@ function plot_raw_data(dependent_var, filename)
     end
 end
 
-plot_raw_data("y(t)_Output","heavy_brake.CSV");
+plot_raw_data('y_t__Output',"heavy_brake.CSV");
